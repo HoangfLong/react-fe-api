@@ -15,7 +15,7 @@ import { AppContext } from "../Context/AppContext";
 //         const popularMovies = await getPopularMovies()
 //         setMovies(popularMovies);
 //       } catch (err) {
-//         console.log(err) 
+//         console.log(err)
 //         setError("Failed to lead movies....")
 //       }
 //       finally {
@@ -25,7 +25,7 @@ import { AppContext } from "../Context/AppContext";
 //     loadPopularMovies()
 //   }, []);
 
-//   // const movies = 
+//   // const movies =
 //   // [
 //   //   { id: 1, title: "CUm master", release_date: "2055" },
 //   //   { id: 2, title: "Hiho", release_date: "2056" },
@@ -35,10 +35,10 @@ import { AppContext } from "../Context/AppContext";
 
 //   const handleSearch = async (e) => {
 //     e.preventDefault();
-    
+
 //     if(!searchQuery.trim()) return
 //     if (loading) return
-    
+
 //     setLoading(true);
 
 //     try {
@@ -74,7 +74,7 @@ import { AppContext } from "../Context/AppContext";
 //         <div className="movies-grid">
 //           {movies.map(
 //             (movie) =>
-//               //movie.title.toLowerCase().startsWith(searchQuery) && 
+//               //movie.title.toLowerCase().startsWith(searchQuery) &&
 //             (
 //                 <MovieCard movie={movie} key={movie.id} />
 //               )
@@ -86,10 +86,39 @@ import { AppContext } from "../Context/AppContext";
 // }
 
 export default function Home() {
+  const { name } = useContext(AppContext);
 
-  const {name} = useContext(AppContext);
+  const [tours, setTours] = useState([]);
 
-  return <div>
-    <h1 className="title">Welcome Home {name}</h1>
-  </div>
+  async function getTours() {
+    const response = await fetch("/api/v1/tours", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    console.log(data.tours);
+
+    if (response.ok) {
+      setTours(data.tours.data);
+    }
+  }
+
+  useEffect(() => {
+    getTours();
+  }, []);
+
+  return (
+    <>
+      <div>
+        <h1 className="title">Welcome Home {name}</h1>
+        <h2 className="title">Tours</h2>
+        {tours.map((tour) => (
+        <li key={tour.id}>{tour.title}</li>
+      ))}
+      </div>
+    </>
+  );
 }

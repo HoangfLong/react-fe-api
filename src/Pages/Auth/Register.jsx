@@ -23,6 +23,9 @@ export default function Register() {
     e.preventDefault();
     const respond = await fetch("/api/v1/register", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(formData),
     });
 

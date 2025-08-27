@@ -17,6 +17,9 @@ export default function Login() {
     e.preventDefault();
     const respond = await fetch("/api/v1/login", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(formData),
     });
 
@@ -38,7 +41,6 @@ export default function Login() {
       <h1 className="title">Login</h1>
 
       <form onSubmit={handleLogin} className="" action="">
-
         {/* email */}
         <div>
           <input
@@ -49,7 +51,7 @@ export default function Login() {
               setFormData({ ...formData, email: e.target.value })
             }
           />
-        {errors.email && <p className="error">{errors.email[0]}</p>}
+          {errors.email && <p className="error">{errors.email[0]}</p>}
         </div>
 
         {/* password */}
@@ -62,7 +64,7 @@ export default function Login() {
               setFormData({ ...formData, password: e.target.value })
             }
           />
-           {errors.password && <p className="error">{errors.password[0]}</p>}
+          {errors.password && <p className="error">{errors.password[0]}</p>}
         </div>
 
         <button className="primary-btn">Login</button>

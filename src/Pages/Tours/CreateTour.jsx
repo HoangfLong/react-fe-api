@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AppContext } from "../../Context/AppContext";
 
 export default function CreateTour() {
   
+  const {token} = useContext(AppContext);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -13,7 +15,7 @@ export default function CreateTour() {
     const form = e.target;
     const formData = new FormData();
 
-    // Thêm các field
+    // add field
     formData.append("title", form.title.value);
     formData.append("description", form.description.value);
     formData.append("destinations", form.destinations.value);
@@ -26,7 +28,7 @@ export default function CreateTour() {
     formData.append("status", form.status.value);
     formData.append("price", Number(form.price.value));
 
-    // Thêm file(s)
+    // add file(s)
     Array.from(form['images[]'].files).forEach((file) => {
       formData.append("images[]", file);
     });
@@ -35,6 +37,7 @@ export default function CreateTour() {
       const response = await axios.post("/api/v1/tours/create", formData, {
         headers: {
           "Content-Type": "multipart/form-data", // Axios tự thêm boundary
+          Authorization: `Bearer ${token}`,
         },
       });
       console.log("Tour created successfully:", response.data);
