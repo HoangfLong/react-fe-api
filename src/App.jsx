@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Layout from "./Pages/Layout";
+import Layout from "./pages/Layout";
 import Home from "./Pages/Home";
 import Register from "./Pages/Auth/Register";
 import Login from "./Pages/Auth/Login";
 import { useContext } from "react";
-import { AppContext } from "./Context/AppContext";
+// import { AppContext } from "./Context/AppContext";
 import CreateTour from "./Pages/Tours/CreateTour";
 
 export default function App() {

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import MovieCard from "../Components/MovieCard";
-import { getPopularMovies, searchrMovies } from "../Services/api";
-import { AppContext } from "../Context/AppContext";
+// import { AppContext } from "../Context/AppContext";
 
 // export default function Home() {
 //   const [searchQuery, setSearchQuery] = useState("");
